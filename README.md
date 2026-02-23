@@ -102,6 +102,7 @@ def train_model(model, train_loader, criterion, optimizer, epochs):
 
 
 <img width="707" height="526" alt="image" src="https://github.com/user-attachments/assets/50357ca0-8fb4-4f03-8f24-afca5279613e" />
+
 ```
 # Prediction for a sample input
 sample_input = X_test[12].clone().unsqueeze(0).detach().type(torch.float32)
