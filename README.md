@@ -56,18 +56,12 @@ class PeopleClassifier(nn.Module):
         self.fc3=nn.Linear(8,4)
 
 
-
-
-
     def forward(self, x):
       x=F.relu(self.fc1(x))
       x=F.relu(self.fc2(x))
       x=self.fc3(x)
       return x
-
-        
-
-        
+       
 
 ```
 ```python
@@ -75,8 +69,6 @@ class PeopleClassifier(nn.Module):
 model =PeopleClassifier(input_size=X_train.shape[1])
 criterion =nn.CrossEntropyLoss()
 optimizer =optim.Adam(model.parameters(), lr=0.01)
-
-
 
 ```
 ```python
@@ -90,10 +82,6 @@ def train_model(model, train_loader, criterion, optimizer, epochs):
       loss.backward ()
       optimizer.step()
 
-
-
-
-
     if (epoch + 1) % 10 == 0:
         print(f'Epoch [{epoch+1}/{epochs}], Loss: {loss.item():.4f}')
 ```
@@ -101,16 +89,35 @@ def train_model(model, train_loader, criterion, optimizer, epochs):
 
 
 ## Dataset Information
-<img width="1191" height="242" alt="image" src="https://github.com/user-attachments/assets/a2f4ef83-cbf9-4b22-a5d4-28ebe7570e06" />
+
+<img width="1266" height="253" alt="image" src="https://github.com/user-attachments/assets/4868bfa5-23fa-458c-981f-d86e0d347e20" />
+
 
 
 ## OUTPUT
 
 ### Confusion Matrix and Classification report
-<img width="649" height="551" alt="image" src="https://github.com/user-attachments/assets/d1182662-315e-40a9-939b-08439d92ca84" />
+
+<img width="995" height="695" alt="image" src="https://github.com/user-attachments/assets/2572730f-8034-4efd-9868-1db9784814e6" />
 
 
-<img width="1211" height="648" alt="image" src="https://github.com/user-attachments/assets/4e1970ff-c42e-4263-b3b9-b2f236960bf4" />
+<img width="707" height="526" alt="image" src="https://github.com/user-attachments/assets/50357ca0-8fb4-4f03-8f24-afca5279613e" />
+```
+# Prediction for a sample input
+sample_input = X_test[12].clone().unsqueeze(0).detach().type(torch.float32)
+with torch.no_grad():
+    output = model(sample_input)
+    # Select the prediction for the sample (first element)
+    predicted_class_index = torch.argmax(output[0]).item()
+    predicted_class_label = label_encoder.inverse_transform([predicted_class_index])[0]
+print("Name: JANANI S")
+print("Register No: 212223230086")
+print(f'Predicted class for sample input: {predicted_class_label}')
+print(f'Actual class for sample input: {label_encoder.inverse_transform([y_test[12].item()])[0]}')
+```
+
+<img width="850" height="127" alt="image" src="https://github.com/user-attachments/assets/1901af4d-b888-4cd3-b1b9-d200e3a590be" />
+
 
 
 
